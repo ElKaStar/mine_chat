@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "removeComments": false,
+    "outDir": "public",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "lib": ["es5", "es6", "dom"]
+  },
+  "exclude": [
+   "node_modules",
+    "server.js"
+  ]
+}
