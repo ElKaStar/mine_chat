@@ -121,7 +121,7 @@ button h3 {
 }
 
 .mates {
-    background-image: url("../images/friends.svg");
+    background-image: url("images/friends.svg");
     max-width: 405px;
     min-height: 148px;
     z-index: 1;
