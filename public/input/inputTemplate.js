@@ -1,4 +1,3 @@
-// Ваш реализованный шаблонизатор
 import { Block } from "../Block.js";
 const template = `<label id="{{ name }}" class="label_input">{{ labelText }}</label>
 <input class="{{ className }}" 
@@ -13,6 +12,9 @@ export class Input extends Block {
     constructor(props) {
         // Создаём враппер DOM-элемент
         super("input", props);
+    }
+    componentDidMount() {
+        this.eventBus().on("touch", () => alert('click'));
     }
     render() {
         // let valid = this.props.formControls[this.props.name].valid

@@ -1,26 +1,26 @@
 
 class EventBus {
-        listeners: any
+        listeners: IListeners
 
     constructor() {
         this.listeners = {};
     }
 
-    on(event: event, callback: any) {
+    on(event: event, callback: Function) {
         if (!this.listeners[event]) {
-            this.listeners[event] = [];
+            this.listeners[event] = []
+        }
+            this.listeners[event].push(callback);
         }
 
-        this.listeners[event].push(callback);
-    }
 
-    off(event: event, callback: any) {
+    off(event: event, callback: Function) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
 
         this.listeners[event] = this.listeners[event].filter(
-            (listener: any) => listener !== callback
+            (listener: Function) => listener !== callback
         );
     }
 
@@ -29,7 +29,7 @@ class EventBus {
             throw new Error(`Нет события: ${event}`);
         }
 
-        this.listeners[event].forEach(function(listener :any) {
+        this.listeners[event].forEach(function(listener :Function) {
             listener(...args);
         });
     }

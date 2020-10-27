@@ -11,7 +11,8 @@
     "strictNullChecks": true,
     "module": "ES6",
     "moduleResolution": "Node",
-    "lib": ["es5", "es6", "dom"]
+    "lib": ["es5", "es6", "dom"],
+    "experimentalDecorators": true
   },
   "exclude": [
    "node_modules",

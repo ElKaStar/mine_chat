@@ -42,7 +42,6 @@ const blurInputHandler = (event) => {
         }
     }
     else {
-        console.log('validCont', validCont);
         if (validCont) {
             newProps[event.target.name].valid = true;
             Login.setProps({
@@ -86,7 +85,6 @@ export class LoginPage extends Block {
             Friends: this.props.Friends,
             imageCriper: this.props.imageCriper.render()
         });
-        console.log('buttonTempl', header);
         return res;
     }
 }

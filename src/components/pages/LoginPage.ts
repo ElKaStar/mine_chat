@@ -9,7 +9,7 @@ import {isValidChecker, validControl} from "../utils/main.js";
 
 
 
-const template =
+const template : string =
 `<div class="{{ className }}">
     {{{ header }}}
     <main id="{{ idMain }}" class="{{ classMain }}"">
@@ -24,41 +24,40 @@ const template =
 </div>`
 
 
-const focusInputHandler = (event: any) => {
-    event.preventDefault();
-    const newProps = Login.props.formControls
-    newProps[event.target.name].touched = true
-    Login.setProps({
-        formControls: newProps
-    });
+const focusInputHandler = <T extends IEvent> (event: T) =>  {
+        event.preventDefault()
+        const newProps : INewProps = Login.props.formControls
+        newProps[event.target.name].touched  = true!
+        Login.setProps({
+            formControls: newProps
+        });
 }
 
-const blurInputHandler = (event: any) => {
-    event.preventDefault();
-    const newProps = Login.props.formControls
-    let validCont = validControl(event.target.value, newProps[event.target.name].validation)
+const blurInputHandler = <T extends IEvent> (event: T) => {
+    event.preventDefault()
+    const newProps : INewProps = Login.props.formControls
+    let validCont : boolean = validControl(event.target.value, newProps[event.target.name].validation)
     if (!event.target.value || !validCont) {
 
         newProps[event.target.name].valid = false
         Login.setProps({
             formControls: newProps
         });
-        const labelTags = document.getElementsByTagName("label");
-        for (let i = 0; i < labelTags.length; i++) {
+        const labelTags : HTMLCollectionOf<any> = document.getElementsByTagName("label");
+        for (let i : number = 0; i < labelTags.length; i++) {
             if (labelTags[i].id === event.target.name) {
                 labelTags[i].textContent = newProps[event.target.name].errorMessage
                 labelTags[i].style.display = "block"
             }
         }
     } else {
-        console.log('validCont', validCont)
         if (validCont) {
             newProps[event.target.name].valid = true
             Login.setProps({
                 formControls: newProps
             });
-            const labelTags = document.getElementsByTagName("label");
-            for (let i = 0; i < labelTags.length; i++) {
+            const labelTags: HTMLCollectionOf<any> = document.getElementsByTagName("label");
+            for (let i : number = 0; i < labelTags.length; i++) {
                 if (labelTags[i].id === event.target.name) {
                     labelTags[i].textContent = ""
                     labelTags[i].style.display = "none"
@@ -68,7 +67,7 @@ const blurInputHandler = (event: any) => {
     }
 }
 
-const clickHandler = (event: any) => {
+const clickHandler = <T extends IEvent> (event: T) => {
     event.preventDefault();
     let validStatus = isValidChecker(Login.props.formControls)
     if (validStatus) {
@@ -83,13 +82,16 @@ const clickHandler = (event: any) => {
 export class LoginPage extends Block {
 
 
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 
     componentDidMount() {
 
     }
+
+
+
 
     render() {
 
@@ -104,7 +106,6 @@ export class LoginPage extends Block {
             Friends: this.props.Friends,
             imageCriper: this.props.imageCriper.render()
         });
-        console.log('buttonTempl',  header)
         return res;
     }
 }
@@ -113,9 +114,9 @@ export class LoginPage extends Block {
 export const Login = new LoginPage({
     className: "site",
     handlers: {
-        clickHandler: clickHandler,
-        focusInputHandler: focusInputHandler,
-        blurInputHandler: blurInputHandler
+       clickHandler: clickHandler,
+       focusInputHandler: focusInputHandler,
+      blurInputHandler: blurInputHandler
     },
     formControls: {
         login: {

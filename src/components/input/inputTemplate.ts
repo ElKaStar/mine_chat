@@ -1,5 +1,4 @@
 
-// Ваш реализованный шаблонизатор
 import {Block} from "../Block.js";
 
 const template =
@@ -18,6 +17,9 @@ export class Input extends Block {
     constructor(props: any) {
         // Создаём враппер DOM-элемент
         super("input", props);
+    }
+    componentDidMount() {
+        this.eventBus().on("touch", () => alert('click'))
     }
 
     render() {
