@@ -1,8 +1,5 @@
-
-import {Block} from "../utils/Block.js";
-
-const template =
-    `<div class="{{ className }}">
+import { Block } from "../utils/Block.js";
+const template = `<div class="{{ className }}">
     <form id ="{{ idForm }}">
         <h2>
         {{ formTitle }}
@@ -16,14 +13,11 @@ const template =
         {{{ button }}}
         <small class="small_text">I have been registered</small>
     </form>
-</div>`
-
-
+</div>`;
 class RegistrationForm extends Block {
-    constructor(props: any) {
+    constructor(props) {
         super("div", props);
     }
-
     render() {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
@@ -37,10 +31,9 @@ class RegistrationForm extends Block {
             inputLogin: this.props.inputLogin.render(),
             inputPassword: this.props.inputPassword.render(),
             button: this.props.button.render()
-
         });
         return res;
-
     }
 }
-export default RegistrationForm
+export default RegistrationForm;
+//# sourceMappingURL=registrationForm.js.map

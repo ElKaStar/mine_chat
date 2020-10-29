@@ -1,0 +1,1 @@
+{"version":3,"file":"simpleHeader.js","sourceRoot":"","sources":["../../../src/components/Header/simpleHeader.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,MAAM,aAAa,CAAC;AACjC,OAAO,UAAU,MAAM,mBAAmB,CAAC;AAG3C,MAAM,CAAC,MAAM,MAAM,GAAG,IAAI,MAAM,CAAC;IAC5B,SAAS,EAAE,qBAAqB;IAChC,KAAK,EAAE,WAAW;IAClB,SAAS,EAAE,KAAK;IACjB,OAAO,EAAE,IAAI,UAAU,CAAC,EAAE,CAAC;CAE7B,CAAC,CAAC"}

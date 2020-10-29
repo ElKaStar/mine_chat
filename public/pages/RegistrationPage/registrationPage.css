@@ -1,0 +1,198 @@
+
+
+h1,
+h2,
+h3,
+body,
+input
+{
+    font-family: "Mouse Memoirs", sans-serif;
+}
+input:focus {
+    border-color: #E1AAAA;
+}
+
+button:hover {
+    box-shadow: 0px 0px 0px 0px;
+    background: #EBDADA;
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+General styles
+--------------------------------------------------------------*/
+.site {
+    background: #ffffff;
+    max-height: 100vh;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.masthead{
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    justify-content: center;
+}
+li {
+    text-decoration: none;
+    list-style: none;
+}
+.label_input {
+    display: none;
+    color: red;
+    padding: 10px;
+}
+
+
+.color_pink {
+    background: #EBDADA;
+}
+.color_body {
+    background: #E1AAAA;
+}
+.color_grey {
+    background: #C1BDBE;
+}
+
+h1 {
+    margin: 0 auto;
+    font-size: 72px;
+    line-height: 82px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h2 {
+    font-size: 42px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.registration_form {
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 30%;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: 1px solid #D9D7D7;
+    min-height: 250px;
+    padding-top: 20px;
+
+}
+input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: black;
+    font-size: 18px;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    background: #E1AAAA;
+    border-radius: 5px;
+    margin-top: 30px;
+    padding: 0px;
+    min-width: 120px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.6);
+    min-height: 30px;
+}
+button h3 {
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.small_text {
+    display: block;
+    margin: 0 auto;
+    outline: 0;
+    resize: vertical;
+    padding: 5px 0 25px 0;
+
+}
+
+.regCriper {
+    position: relative;
+    background-image: url("../../images/criperSVG.svg");
+    width: 310px;
+    height: 278px;
+    z-index: 0.99;
+    top: -500px;
+    left: 10px;
+
+}
+
+.content {
+    margin-top: 7px;
+    padding-top: 35px;
+    min-height: 630px;
+    text-align: center;
+    justify-content: center;
+    aling-items: center;
+}
+
+
+
+
+
+/*--------------------------------------------------------------
+If no grid support, limit width to 50em and center align
+--------------------------------------------------------------*/
+@supports not (display: grid) {
+    .site {
+        max-width: 50em;
+        margin: 0 auto;
+    }
+}
+
+
+@media screen and (min-width: 1000px) {
+    @supports (display: grid) {
+        .site {
+            display: grid;
+            grid-template-columns: 1fr repeat(10, minmax(auto, 10em)) 1fr;
+            grid-template-rows: 1fr repeat(2, minmax(auto, 7em));
+        }
+
+        .masthead {
+            grid-column: 3/11;
+        }
+        .masthead {
+            grid-row: 1;
+            max-height: 7em;
+        }
+        .main-content {
+            grid-column: 3/11;
+            grid-row: 2/3;
+        }
+    }
+}
+
+
+
+@media screen and (max-width: 400px) {
+    .registration_form {
+        width: 95%;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width:700px)  {
+    .registration_form {
+        width: 75%;
+    }
+}
+@media screen and (min-width: 700px) and (max-width:1000px)  {
+    .registration_form {
+        width: 55%;
+    }
+}
+
+
+
+
