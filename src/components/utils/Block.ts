@@ -108,6 +108,7 @@ export abstract class Block implements IBlock{
         const block = this.render();
 
         if (block !== undefined) {
+            //зачем в учебных материалах описан способ который нельзя использовать и не приведен пример как нужно?
             if (this._element) {
                 this._element.innerHTML = block;
                 this._attachListeners();
