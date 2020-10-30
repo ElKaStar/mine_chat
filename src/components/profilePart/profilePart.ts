@@ -32,7 +32,7 @@ const template =
 
 
 export class ProfilePart extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 
@@ -53,5 +53,8 @@ export class ProfilePart extends Block {
         console.log('render messagesTemplate')
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

@@ -1,7 +1,7 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
     `<div class="{{ className }}">
         {{{ imgPhoto }}}
             <div class="friend_info">
@@ -28,5 +28,8 @@ export class FriendItem extends Block {
         });
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

@@ -1,6 +1,8 @@
 
 import {Block} from "../utils/Block.js";
 
+
+
 const template =
     `<div class="{{ className }}">
     <form id ="{{ idForm }}">
@@ -20,8 +22,11 @@ const template =
 
 
 class RegistrationForm extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
+    }
+
+    componentDidMount(): void {
     }
 
     render() {
@@ -42,5 +47,7 @@ class RegistrationForm extends Block {
         return res;
 
     }
+
+
 }
 export default RegistrationForm

@@ -9,6 +9,8 @@ class ImageClass extends Block {
         let res = callbackFunc({ className: this.props.className, imageSrc: this.props.imageSrc });
         return res;
     }
+    componentDidMount() {
+    }
 }
 export default ImageClass;
 //# sourceMappingURL=image.js.map

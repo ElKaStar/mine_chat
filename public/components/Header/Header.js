@@ -38,6 +38,8 @@ class Header extends Block {
         });
         return res;
     }
+    componentDidMount() {
+    }
 }
 export default Header;
 //# sourceMappingURL=Header.js.map

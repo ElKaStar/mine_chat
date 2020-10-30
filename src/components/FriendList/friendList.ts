@@ -18,8 +18,11 @@ const template =
 
 
 export class FriendList extends Block {
-    constructor(props: any) {
+
+    constructor(props: object) {
         super("div", props);
+    }
+    componentDidMount(): void {
     }
 
     render() {

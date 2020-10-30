@@ -1,6 +1,6 @@
 
 import {Block} from "../utils/Block.js";
-
+import {IMessages} from "../../Pages/MessagesPage/MessagesPage";
 const template =
     `<div class="{{ className }}">
           <div class="messages_items">
@@ -30,12 +30,12 @@ const template =
 
 
 export class MessagesBlock extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 
     render() {
-       let messagesArray: any[] = this.props.messagesList.map((item: any) => item.render())
+       let messagesArray: IMessages [] = this.props.messagesList.map((item: IMessages) => item.render())
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
@@ -45,8 +45,10 @@ export class MessagesBlock extends Block {
             buttonBack: this.props.buttonBack.render(),
             buttonSendMessage: this.props.buttonSendMessage.render()
         });
-        console.log('render messagesTemplate', messagesArray)
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

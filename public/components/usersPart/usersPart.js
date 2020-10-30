@@ -47,8 +47,9 @@ export class UsersBlock extends Block {
             buttonBack: this.props.buttonBack.render(),
             pages: this.props.pages
         });
-        console.log('render messagesTemplate');
         return res;
+    }
+    componentDidMount() {
     }
 }
 //# sourceMappingURL=usersPart.js.map

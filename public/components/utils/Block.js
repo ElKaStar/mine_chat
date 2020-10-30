@@ -1,16 +1,12 @@
 import EventBus from "./EventBus.js";
 export class Block {
-    constructor(tagName = "div", props = {}) {
-        this._element = null;
-        this._meta = null;
-        this._subscriptions = null;
+    constructor(tagName = "div", props) {
+        this._subscriptions = [];
         this.setProps = (nextProps) => {
-            //console.log('setProps', this.props, nextProps);
             if (!nextProps) {
                 return;
             }
             Object.assign(this.props, nextProps);
-            //this._componentDidUpdate(this.props, nextProps);
         };
         const eventBus = new EventBus();
         this._meta = {
@@ -29,50 +25,45 @@ export class Block {
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     }
     _createResources() {
-        const { tagName } = this._meta;
-        this._element = this._createDocumentElement(tagName);
+        if (this._meta.hasOwnProperty("tagName")) {
+            const { tagName } = this._meta;
+            this._element = this._createDocumentElement(tagName);
+        }
     }
     init() {
         this._createResources();
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-        // this.eventBus().emit(Block.EVENTS.FLOW_CDU);
     }
     _componentDidMount() {
         this.componentDidMount();
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
-    // Может переопределять пользователь, необязательно трогать
-    componentDidMount() { }
     _componentDidUpdate(oldProps, newProps) {
-        //console.log('_update', oldProps, newProps);
         const response = this.componentDidUpdate(oldProps, newProps);
-        // console.log('_update', response, oldProps, newProps);
         if (response) {
-            //console.log('_update', response, oldProps, newProps);
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
-    // Может переопределять пользователь, необязательно трогать
     componentDidUpdate(oldProps, newProps) {
-        //  console.log('update', oldProps, newProps);
-        if (oldProps === newProps) {
+        if (!oldProps || !newProps) {
+            return false;
+        }
+        console.log("CDU", oldProps, newProps);
+        if (JSON.stringify(oldProps) === JSON.stringify(newProps)) {
             return false;
         }
         return true;
     }
     get element() {
-        return this._element;
+        return (this._element ? this._element : null);
     }
     _render() {
         const block = this.render();
-        // console.log("innerHTML",block)
-        // Этот небезопасный метод для упрощения логики
-        // Используйте шаблонизатор из npm или напишите свой безопасный
-        // Нужно не в строку компилировать (или делать это правильно),
-        // либо сразу в DOM-элементы возвращать из compile DOM-ноду
-        if (this._element) {
-            this._element.innerHTML = block;
-            this._attachListeners();
+        if (block !== undefined) {
+            if (this._element) {
+                this._element.innerHTML = block;
+                this._attachListeners();
+            }
         }
     }
     _attachListeners() {
@@ -82,7 +73,6 @@ export class Block {
         while (!item.done) {
             const [elem, events] = item.value;
             Object.keys(events).forEach(eventName => {
-                //  console.log(elem, eventName, events[eventName]);
                 elem.addEventListener(eventName, events[eventName]);
             });
             item = iterator.next();
@@ -94,11 +84,9 @@ export class Block {
         const subscriptions = new Map();
         while (stack.length) {
             const current = stack.pop();
-            // console.log('block pop',current)
             if (!current)
                 break;
             const attrs = Array.from(current.attributes).filter((attr) => attr.name.startsWith('on'));
-            //  console.log('block',attrs)
             if (!attrs.length) {
                 const children = Array.from(current.children);
                 stack.push(...children);
@@ -111,7 +99,6 @@ export class Block {
             attrs.forEach((attr) => {
                 const eventName = attr.name.substring(2).toLocaleLowerCase();
                 try {
-                    //   console.log("block props", this.props)
                     const handler = this.props.handlers[attr.value];
                     events[eventName] = handler;
                 }
@@ -124,20 +111,15 @@ export class Block {
             stack.push(...children);
         }
         this._subscriptions = subscriptions;
-        // console.log("this._subscriptions",this._subscriptions)
     }
-    // Может переопределять пользователь, необязательно трогать
-    render() { }
     getContent() {
         return this.element;
     }
     _makePropsProxy(props) {
-        // Можно и так передать this
-        // Такой способ больше не применяется с приходом ES6+
         const self = this;
         const proxyBlock = new Proxy(props, {
             deleteProperty(target, prop) {
-                throw new Error(`нет доступа для ${target} и ${prop}`);
+                throw new Error(`нет доступа для ${target} и ${String(prop)}`);
             },
             get(target, prop) {
                 let value = target[prop];
@@ -146,25 +128,16 @@ export class Block {
             set(target, prop, val) {
                 let oldProps = target[prop];
                 target[prop] = val;
-                //  console.log('set proxy',  oldProps, val);
+                console.log("set");
                 self._componentDidUpdate(oldProps, val);
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU);
-                // this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
                 return true;
             }
         });
-        //  console.log('proxy', proxyBlock);
         return proxyBlock;
     }
     _createDocumentElement(tagName) {
-        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         return document.createElement(tagName);
-    }
-    show() {
-        this.getContent().style.display = "block";
-    }
-    hide() {
-        this.getContent().style.display = "none";
     }
 }
 Block.EVENTS = {

@@ -1,7 +1,7 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
 `<nav class="{{ className }}">
     <ul>
      {{#if isAddMenu}}
@@ -28,7 +28,7 @@ const template =
 
 
 class Header extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("header", props);
     }
 
@@ -46,6 +46,9 @@ class Header extends Block {
         });
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }
 export default Header

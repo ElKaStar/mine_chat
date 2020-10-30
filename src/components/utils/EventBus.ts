@@ -1,12 +1,23 @@
+import {ListenersType} from "./Types";
 
-class EventBus {
-        listeners: IListeners
+
+export interface IEventBus {
+    listeners: ListenersType,
+    on: (event: string, callback: Function) => void,
+    off: (event: string, callback: Function) => void,
+    emit: (event: string, ...args :any) => void
+}
+
+
+
+class EventBus implements IEventBus {
+        listeners: ListenersType
 
     constructor() {
         this.listeners = {};
     }
 
-    on(event: event, callback: Function) {
+    on(event: string, callback: Function) {
         if (!this.listeners[event]) {
             this.listeners[event] = []
         }
@@ -14,17 +25,17 @@ class EventBus {
         }
 
 
-    off(event: event, callback: Function) {
+    off(event: string, callback: Function) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
 
         this.listeners[event] = this.listeners[event].filter(
-            (listener: Function) => listener !== callback
+            listener => listener !== callback
         );
     }
 
-    emit(event: any, ...args :any) {
+    emit(event: string, ...args :any) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }

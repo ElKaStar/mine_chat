@@ -4,6 +4,7 @@ import {render} from "../../components/utils/renderDOM.js";
 
 
 
+
 const template =
     `<div class="wrapper">
         <div class="main">
@@ -25,7 +26,7 @@ const template =
         <div>`
 
 export class NotFound extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 

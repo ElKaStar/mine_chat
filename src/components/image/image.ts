@@ -1,12 +1,12 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
     `<img class="{{ className }}" src="{{ imageSrc}}" alt="{{ alt }}"/>`
 
 
 class ImageClass extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("img", props);
     }
 
@@ -15,6 +15,9 @@ class ImageClass extends Block {
         let res = callbackFunc({ className: this.props.className, imageSrc: this.props.imageSrc });
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }
 export default ImageClass

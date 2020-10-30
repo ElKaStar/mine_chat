@@ -15,40 +15,48 @@ const template = `<div class="{{ className }}">
 const focusInputHandler = (event) => {
     event.preventDefault();
     const newProps = Registration.props.formControls;
-    newProps[event.target.name].touched = true;
-    Registration.setProps({
-        formControls: newProps
-    });
+    try {
+        if (newProps) {
+            newProps[event.target.name].touched = true;
+        }
+        Registration.setProps({
+            formControls: newProps
+        });
+    }
+    catch (e) {
+        throw new Error("Smth went wrong");
+    }
 };
 const blurInputHandler = (event) => {
     event.preventDefault();
     const newProps = Registration.props.formControls;
-    let validCont = validControl(event.target.value, newProps[event.target.name].validation);
-    if (!event.target.value || !validCont) {
-        newProps[event.target.name].valid = false;
-        Registration.setProps({
-            formControls: newProps
-        });
-        const labelTags = document.getElementsByTagName("label");
-        for (let i = 0; i < labelTags.length; i++) {
-            if (labelTags[i].id === event.target.name) {
-                labelTags[i].textContent = newProps[event.target.name].errorMessage;
-                labelTags[i].style.display = "block";
-            }
-        }
-    }
-    else {
-        console.log('validCont', validCont);
-        if (validCont) {
-            newProps[event.target.name].valid = true;
+    if (newProps) {
+        let validCont = validControl((event.target.value ? event.target.value : ''), newProps[event.target.name].validation);
+        if (!event.target.value || !validCont) {
+            newProps[event.target.name].valid = false;
             Registration.setProps({
                 formControls: newProps
             });
             const labelTags = document.getElementsByTagName("label");
             for (let i = 0; i < labelTags.length; i++) {
                 if (labelTags[i].id === event.target.name) {
-                    labelTags[i].textContent = "";
-                    labelTags[i].style.display = "none";
+                    labelTags[i].textContent = newProps[event.target.name].errorMessage;
+                    labelTags[i].style.display = "block";
+                }
+            }
+        }
+        else {
+            if (validCont) {
+                newProps[event.target.name].valid = true;
+                Registration.setProps({
+                    formControls: newProps
+                });
+                const labelTags = document.getElementsByTagName("label");
+                for (let i = 0; i < labelTags.length; i++) {
+                    if (labelTags[i].id === event.target.name) {
+                        labelTags[i].textContent = "";
+                        labelTags[i].style.display = "none";
+                    }
                 }
             }
         }
@@ -56,13 +64,18 @@ const blurInputHandler = (event) => {
 };
 const clickHandler = (event) => {
     event.preventDefault();
-    let validStatus = isValidChecker(Registration.props.formControls);
-    if (validStatus) {
-        alert("submit");
+    const formElement = document.querySelector("form");
+    if (formElement) {
+        const formData = new FormData(formElement);
+        let validStatus = isValidChecker(Registration.props.formControls);
+        if (validStatus) {
+            console.log(formData);
+        }
+        else {
+            alert("fault");
+        }
     }
-    else {
-        alert("fault");
-    }
+    alert("fault");
 };
 export class RegistrationPage extends Block {
     constructor(props) {
@@ -81,11 +94,10 @@ export class RegistrationPage extends Block {
             registrationForm: this.props.registrationForm.render(),
             regCriper: this.props.regCriper
         });
-        console.log('buttonTempl', res);
         return res;
     }
 }
-export const Registration = new RegistrationPage({
+const state = {
     className: "site",
     handlers: {
         clickHandler: clickHandler,
@@ -163,6 +175,7 @@ export const Registration = new RegistrationPage({
     idMain: "content",
     classMain: "main-content",
     regCriper: "regCriper"
-});
+};
+export const Registration = new RegistrationPage(state);
 render(".app", Registration);
 //# sourceMappingURL=registrationPage.js.map

@@ -4,8 +4,7 @@ import {render} from "../../components/utils/renderDOM.js";
 import {header} from "../../components/Header/simpleHeader.js";
 import {registrationForm} from "./registrationForm.js";
 import {isValidChecker, validControl} from "../../components/utils/main.js";
-
-
+import {EventType} from "../../components/utils/Types.js";
 
 
 
@@ -22,69 +21,82 @@ const template =
     </main>
 </div>`
 
-const focusInputHandler = (event: any) => {
+const focusInputHandler = (event: EventType) => {
     event.preventDefault();
-    const newProps = Registration.props.formControls
-    newProps[event.target.name].touched = true
-    Registration.setProps({
-        formControls: newProps
-    });
-}
-
-const blurInputHandler = (event: any) => {
-    event.preventDefault();
-    const newProps = Registration.props.formControls
-    let validCont = validControl(event.target.value, newProps[event.target.name].validation)
-    if (!event.target.value || !validCont) {
-
-        newProps[event.target.name].valid = false
+    const newProps  = Registration.props.formControls
+    try {
+        if (newProps) {
+            newProps[event.target.name].touched = true
+        }
         Registration.setProps({
             formControls: newProps
-        });
-        const labelTags = document.getElementsByTagName("label");
-        for (let i = 0; i < labelTags.length; i++) {
-            if (labelTags[i].id === event.target.name) {
-                labelTags[i].textContent = newProps[event.target.name].errorMessage
-                labelTags[i].style.display = "block"
-            }
-        }
-    } else {
-        console.log('validCont', validCont)
-        if (validCont) {
-            newProps[event.target.name].valid = true
+        })
+    } catch (e) {
+        throw new Error("Smth went wrong")
+    }
+}
+
+const blurInputHandler = (event: EventType) => {
+    event.preventDefault();
+    const newProps = Registration.props.formControls
+    if (newProps) {
+        let validCont: boolean = validControl((event.target.value ? event.target.value : ''), newProps[event.target.name].validation)
+
+        if (!event.target.value || !validCont) {
+                newProps[event.target.name].valid = false
             Registration.setProps({
                 formControls: newProps
             });
             const labelTags = document.getElementsByTagName("label");
             for (let i = 0; i < labelTags.length; i++) {
                 if (labelTags[i].id === event.target.name) {
-                    labelTags[i].textContent = ""
-                    labelTags[i].style.display = "none"
+                    labelTags[i].textContent = newProps[event.target.name].errorMessage
+                    labelTags[i].style.display = "block"
+                }
+            }
+        } else {
+            if (validCont) {
+                newProps[event.target.name].valid = true
+                Registration.setProps({
+                    formControls: newProps
+                });
+                const labelTags = document.getElementsByTagName("label");
+                for (let i = 0; i < labelTags.length; i++) {
+                    if (labelTags[i].id === event.target.name) {
+                        labelTags[i].textContent = ""
+                        labelTags[i].style.display = "none"
+                    }
                 }
             }
         }
     }
 }
 
-const clickHandler = (event: any) => {
+const clickHandler = (event: EventType) => {
     event.preventDefault();
-    let validStatus = isValidChecker(Registration.props.formControls)
-    if (validStatus) {
-        alert("submit")
-    } else {
-        alert("fault")
+    const formElement = document.querySelector("form");
+    if (formElement) {
+        const formData = new FormData(formElement)!;
+        let validStatus = isValidChecker(Registration.props.formControls)
+        if (validStatus) {
+            console.log(formData)
+        } else {
+            alert("fault")
+        }
     }
+    alert("fault")
 }
 
 
 export class RegistrationPage extends Block {
-    constructor(props: any) {
+
+    constructor(props: object) {
         super("div", props);
     }
 
-    componentDidMount() {
-
+    componentDidMount(): void {
     }
+
 
     render() {
 
@@ -98,13 +110,13 @@ export class RegistrationPage extends Block {
             registrationForm: this.props.registrationForm.render(),
             regCriper: this.props.regCriper
         });
-        console.log('buttonTempl',  res)
+
         return res;
     }
+
+
 }
-
-
-export const Registration = new RegistrationPage({
+const state = {
     className: "site",
     handlers: {
         clickHandler: clickHandler,
@@ -180,10 +192,14 @@ export const Registration = new RegistrationPage({
         }
     },
     header: header,
-    registrationForm: registrationForm,
+    registrationForm : registrationForm,
     idMain: "content",
     classMain: "main-content",
     regCriper: "regCriper"
-});
+}
+
+
+
+export const Registration = new RegistrationPage(state);
 
 render(".app", Registration);

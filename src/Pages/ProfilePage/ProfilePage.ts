@@ -11,6 +11,7 @@ import {UserDetail} from "../../components/userDetails/userDetail.js";
 import {Input} from "../../components/input/input.js";
 
 
+
 const template =
     `<div class="{{ className }}">
     {{{ header }}}
@@ -21,7 +22,7 @@ const template =
 </div>`
 
 export class ProfilePage extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 

@@ -46,5 +46,7 @@ export class ProfilePart extends Block {
         console.log('render messagesTemplate');
         return res;
     }
+    componentDidMount() {
+    }
 }
 //# sourceMappingURL=profilePart.js.map

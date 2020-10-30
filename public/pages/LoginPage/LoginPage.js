@@ -17,22 +17,21 @@ const template = `<div class="{{ className }}">
     </main>
 </div>`;
 const focusInputHandler = (event) => {
+    console.log("focusInputHandler", event.target.value, Login.props.formControls);
     event.preventDefault();
     const newProps = Login.props.formControls;
     newProps[event.target.name].touched = true;
-    Login.setProps({
-        formControls: newProps
-    });
+    Login.setProps(Object.assign(Object.assign({}, Login.props), { formControls: newProps }));
+    console.log(Login.props);
 };
 const blurInputHandler = (event) => {
+    console.log("blurInputHandler", event.target.value);
     event.preventDefault();
     const newProps = Login.props.formControls;
     let validCont = validControl(event.target.value, newProps[event.target.name].validation);
     if (!event.target.value || !validCont) {
         newProps[event.target.name].valid = false;
-        Login.setProps({
-            formControls: newProps
-        });
+        Login.setProps(Object.assign(Object.assign({}, Login.props), { formControls: newProps }));
         const labelTags = document.getElementsByTagName("label");
         for (let i = 0; i < labelTags.length; i++) {
             if (labelTags[i].id === event.target.name) {
@@ -43,10 +42,9 @@ const blurInputHandler = (event) => {
     }
     else {
         if (validCont) {
+            newProps[event.target.name].value = event.target.value;
             newProps[event.target.name].valid = true;
-            Login.setProps({
-                formControls: newProps
-            });
+            Login.setProps(Object.assign(Object.assign({}, Login.props), { formControls: newProps }));
             const labelTags = document.getElementsByTagName("label");
             for (let i = 0; i < labelTags.length; i++) {
                 if (labelTags[i].id === event.target.name) {
@@ -56,16 +54,26 @@ const blurInputHandler = (event) => {
             }
         }
     }
+    console.log(Login.props);
 };
 const clickHandler = (event) => {
     event.preventDefault();
-    let validStatus = isValidChecker(Login.props.formControls);
-    if (validStatus) {
-        alert("submit");
+    const formElement = document.querySelector("form");
+    if (formElement) {
+        const formData = new FormData(formElement);
+        let validStatus = isValidChecker(Login.props.formControls);
+        console.log(validStatus);
+        if (validStatus) {
+            console.log(formData);
+        }
+        else {
+            alert("fault");
+        }
     }
     else {
         alert("fault");
     }
+    console.log(Login.props);
 };
 export class LoginPage extends Block {
     constructor(props) {

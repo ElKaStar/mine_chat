@@ -9,6 +9,7 @@ import {FriendItem} from "../../components/friendItem/friend.js";
 import {UsersBlock} from "../../components/usersPart/usersPart.js";
 
 
+
 const template =
     `<div class="{{ className }}">
     {{{ header }}}
@@ -19,7 +20,7 @@ const template =
 </div>`
 
 export class ListOfChatsPage extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 

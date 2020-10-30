@@ -11,6 +11,7 @@ import {Button} from "../../components/button/button.js";
 import {FriendItem} from "../../components/friendItem/friend.js";
 
 
+
 const template =
     `<div class="{{ className }}">
     {{{ header }}}
@@ -20,8 +21,14 @@ const template =
     </main>
 </div>`
 
-export class MessagesPage extends Block {
-    constructor(props: any) {
+export interface IMessages {
+    componentDidMount: () => void,
+    render: () => string
+}
+
+
+export class MessagesPage extends Block implements IMessages{
+    constructor(props: object) {
         super("div", props);
     }
 
@@ -41,7 +48,6 @@ export class MessagesPage extends Block {
             friendsList: this.props.friendsList.render(),
             messagesPart: this.props.messagesPart.render()
         });
-        console.log('arrFriends',this.props)
         return res;
     }
 }

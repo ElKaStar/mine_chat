@@ -1,7 +1,7 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
     `<li class="proforma_item">
         <div class="detailed_info">
            <div class="proforma_label">
@@ -13,9 +13,12 @@ const template =
         </div>
      </li>`
 
+export interface IUser {
+    render: () => string,
+    componentDidMount: () => void
+}
 
-
-export class UserDetail extends Block {
+export class UserDetail extends Block implements IUser {
     constructor(props: any) {
         super("li", props);
     }
@@ -29,5 +32,8 @@ export class UserDetail extends Block {
         });
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

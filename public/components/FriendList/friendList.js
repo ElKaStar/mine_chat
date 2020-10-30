@@ -15,6 +15,8 @@ export class FriendList extends Block {
     constructor(props) {
         super("div", props);
     }
+    componentDidMount() {
+    }
     render() {
         let friendsArray = this.props.friends.map((item) => item.render());
         let callbackFunc = Handlebars.compile(template);

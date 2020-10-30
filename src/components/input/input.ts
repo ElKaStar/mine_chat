@@ -1,7 +1,8 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+
+const template : string =
 `<label id="{{ name }}" class="label_input">{{ labelText }}</label>
 <input class="{{ className }}" 
         id="{{ id }}"
@@ -14,10 +15,13 @@ const template =
 
 
 export class Input extends Block {
-    constructor(props: any) {
+
+    constructor(props: object) {
         super("input", props);
     }
+    componentDidMount(): void {
 
+    }
 
     render() {
 

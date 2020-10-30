@@ -1,14 +1,9 @@
-
 import LoginForm from "../../components/LoginForm/LoginForm.js";
-import {Input} from "../../components/input/input.js";
-import {Button} from "../../components/button/button.js";
-
-
-
-
-export const loginForm = new LoginForm({
+import { Input } from "../../components/input/input.js";
+import { Button } from "../../components/button/button.js";
+export const loginFormState = new LoginForm({
     className: 'login_form',
-    idForm: 'loginForm',
+    idForm: 'loginFormState',
     formTitle: 'Login',
     inputLogin: new Input({
         className: '',
@@ -32,6 +27,4 @@ export const loginForm = new LoginForm({
     classNameFP: 'forgot_pass',
     forgotPassword: "Forgot password?"
 });
-
-
-
+//# sourceMappingURL=LoginFormState.js.map

@@ -38,8 +38,9 @@ export class MessagesBlock extends Block {
             buttonBack: this.props.buttonBack.render(),
             buttonSendMessage: this.props.buttonSendMessage.render()
         });
-        console.log('render messagesTemplate', messagesArray);
         return res;
+    }
+    componentDidMount() {
     }
 }
 //# sourceMappingURL=messages.js.map

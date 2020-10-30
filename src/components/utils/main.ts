@@ -1,11 +1,13 @@
-export const validControl = (value: any, validation: any) => {
+import {formControlsType, validationType} from "./Types";
+
+export const validControl = (value: string, validation: validationType) =>  {
     if (!validation) {
         return true
     }
-    let isValid = true
+    let isValid: boolean = true
     if (validation.email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        isValid = re.test(String(value).toLowerCase()) && isValid
+        const re : RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        isValid = re.test(String(value).toLowerCase())
     }
     if (validation.required) {
         isValid = value.trim() !== '' && isValid
@@ -14,17 +16,14 @@ export const validControl = (value: any, validation: any) => {
         isValid = (value.length >= validation.minLength && isValid)
     }
     return isValid
-
 }
 
-export const isValidChecker = (formControls: any) => {
-    console.log(formControls)
-    const isTouched =  Object.keys(formControls).filter(element => formControls[element].touched === false)
-    const isValidArr = Object.keys(formControls).filter(element => formControls[element].valid === false)
-    console.log('isTouched',isTouched, 'isValidArr', isValidArr)
-    if (isValidArr.length === 0 && isTouched.length === 0) {
-        return true
-    } else {
-        return false
-    }
+export const isValidChecker = (formControls: formControlsType) => {
+    let result: boolean = true;
+    Object.keys(formControls).forEach(element => {
+        if (!formControls[element].touched || !formControls[element].valid) {
+            result = false
+        }
+    })
+    return result
 }

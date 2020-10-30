@@ -17,5 +17,7 @@ export class MessageItem extends Block {
         console.log('render header', res);
         return res;
     }
+    componentDidMount() {
+    }
 }
 //# sourceMappingURL=message.js.map

@@ -12,37 +12,37 @@
 
   [[redirects]]
 from = "/messages"
-to = "/pages/message.html"
+to = "/pages/MessagesPage/message.html"
 status = 200
 
  [[redirects]]
 from = "/registration"
-to = "/pages/registrationPage.html"
+to = "/pages/RegistrationPage/registrationPage.html"
 status = 200
 
  [[redirects]]
 from = "/500"
-to = "/pages/500ServerError.html"
+to = "/pages/500Page/500ServerError.html"
 status = 200
 
  [[redirects]]
 from = "/404"
-to = "/pages/404notFound.html"
+to = "/pages/404Page/404notFound.html"
 status = 200
 
  [[redirects]]
 from = "/users"
-to = "/pages/listOfChats.html"
+to = "/pages/ListOfChatsPage/listOfChats.html"
 status = 200
 
  [[redirects]]
 from = "/profile"
-to = "/pages/profilePage.html"
+to = "/pages/ProfilePage/profilePage.html"
 status = 200
 
 
   [[redirects]]
 from = "/*"
-to = "/pages/404notFound.html"
+to = "/pages/404Page/404notFound.html"
 status = 200
 

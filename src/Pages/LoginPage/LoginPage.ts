@@ -5,6 +5,8 @@ import {header} from "../../components/Header/simpleHeader.js";
 import {loginForm} from "./LoginForm.js";
 import ImageClass from "../../components/image/image.js";
 import {isValidChecker, validControl} from "../../components/utils/main.js";
+import {EventType} from "../../components/utils/Types";
+
 
 
 
@@ -24,23 +26,27 @@ const template : string =
 </div>`
 
 
-const focusInputHandler = <T extends IEvent> (event: T) =>  {
+const focusInputHandler = (event: EventType) =>  {
+    console.log("focusInputHandler",event.target.value, Login.props.formControls)
         event.preventDefault()
-        const newProps : INewProps = Login.props.formControls
-        newProps[event.target.name].touched  = true!
+        const newProps = Login.props.formControls
+        newProps[event.target.name].touched  = true
         Login.setProps({
+            ...Login.props,
             formControls: newProps
         });
+        console.log(Login.props)
 }
 
-const blurInputHandler = <T extends IEvent> (event: T) => {
+const blurInputHandler = (event: EventType) => {
+    console.log("blurInputHandler",event.target.value)
     event.preventDefault()
-    const newProps : INewProps = Login.props.formControls
+    const newProps = Login.props.formControls
     let validCont : boolean = validControl(event.target.value, newProps[event.target.name].validation)
     if (!event.target.value || !validCont) {
-
         newProps[event.target.name].valid = false
         Login.setProps({
+            ...Login.props,
             formControls: newProps
         });
         const labelTags : HTMLCollectionOf<any> = document.getElementsByTagName("label");
@@ -52,8 +58,10 @@ const blurInputHandler = <T extends IEvent> (event: T) => {
         }
     } else {
         if (validCont) {
+            newProps[event.target.name].value = event.target.value
             newProps[event.target.name].valid = true
             Login.setProps({
+                ...Login.props,
                 formControls: newProps
             });
             const labelTags: HTMLCollectionOf<any> = document.getElementsByTagName("label");
@@ -65,16 +73,25 @@ const blurInputHandler = <T extends IEvent> (event: T) => {
             }
         }
     }
+    console.log(Login.props)
 }
 
-const clickHandler = <T extends IEvent> (event: T) => {
+const clickHandler = (event: EventType) => {
     event.preventDefault();
-    let validStatus = isValidChecker(Login.props.formControls)
-    if (validStatus) {
-        alert("submit")
+    const formElement = document.querySelector("form");
+    if (formElement) {
+        const formData = new FormData(formElement)!;
+        let validStatus = isValidChecker(Login.props.formControls)
+        console.log(validStatus)
+        if (validStatus) {
+            console.log(formData)
+        } else {
+           alert("fault")
+        }
     } else {
         alert("fault")
     }
+    console.log(Login.props)
 }
 
 

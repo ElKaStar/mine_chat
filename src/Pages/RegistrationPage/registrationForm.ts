@@ -1,12 +1,10 @@
 
 import RegistrationForm from "../../components/RegistrationForm/registrationForm.js";
-// @ts-ignore
 import {Input} from "../../components/input/input.js";
-// @ts-ignore
 import {Button} from "../../components/button/button.js";
 
 
-export const registrationForm = new RegistrationForm({
+    const state = {
     className: 'registration_form',
     idForm: 'registrationForm',
     formTitle: 'Registration',
@@ -57,7 +55,9 @@ export const registrationForm = new RegistrationForm({
         type: "submit",
         child: "send"
     })
-});
+};
+
+export const registrationForm = new RegistrationForm(state);
 
 
 

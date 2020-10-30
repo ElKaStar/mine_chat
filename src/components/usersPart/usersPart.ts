@@ -1,5 +1,6 @@
 
 import {Block} from "../utils/Block.js";
+import {IUser} from "../userDetails/userDetail";
 
 const template =
     `<div class="{{ className }}">
@@ -39,12 +40,12 @@ const template =
 
 
 export class UsersBlock extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 
     render() {
-        let usersArray: any[] = this.props.usersList.map((item: any) => item.render())
+        let usersArray: IUser [] = this.props.usersList.map((item: IUser) => item.render())
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
@@ -54,8 +55,10 @@ export class UsersBlock extends Block {
             buttonBack: this.props.buttonBack.render(),
             pages: this.props.pages
         });
-        console.log('render messagesTemplate')
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

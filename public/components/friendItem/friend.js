@@ -20,5 +20,7 @@ export class FriendItem extends Block {
         });
         return res;
     }
+    componentDidMount() {
+    }
 }
 //# sourceMappingURL=friend.js.map

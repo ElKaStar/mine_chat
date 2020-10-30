@@ -4,6 +4,7 @@ import {render} from "../../components/utils/renderDOM.js";
 
 
 
+
 const template =
     `<main>
     <div class="{{ className }}">
@@ -24,7 +25,7 @@ const template =
 </main>`
 
 export class ServerError extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("main", props);
     }
 

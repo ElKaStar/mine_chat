@@ -30,7 +30,6 @@ export class MessagesPage extends Block {
             friendsList: this.props.friendsList.render(),
             messagesPart: this.props.messagesPart.render()
         });
-        console.log('arrFriends', this.props);
         return res;
     }
 }

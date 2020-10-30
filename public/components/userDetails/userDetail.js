@@ -21,5 +21,7 @@ export class UserDetail extends Block {
         });
         return res;
     }
+    componentDidMount() {
+    }
 }
 //# sourceMappingURL=userDetail.js.map

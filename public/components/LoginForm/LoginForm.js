@@ -14,6 +14,8 @@ class LoginForm extends Block {
     constructor(props) {
         super("div", props);
     }
+    componentDidMount() {
+    }
     render() {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({

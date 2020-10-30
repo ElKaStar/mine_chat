@@ -1,7 +1,7 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
     `<div class="{{ className }}">
          <label class="friend_name">{{ friendName }}</label>
          <p class="friend_message">{{ message }}</p>
@@ -10,7 +10,7 @@ const template =
 
 
 export class MessageItem extends Block {
-    constructor(props: any) {
+    constructor(props: object) {
         super("div", props);
     }
 
@@ -25,5 +25,8 @@ export class MessageItem extends Block {
         console.log('render header', res)
         return res;
 
+    }
+
+    componentDidMount(): void {
     }
 }

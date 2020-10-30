@@ -1,7 +1,7 @@
 
 import {Block} from "../utils/Block.js";
 
-const template =
+const template : string =
 `<div class="{{ className }}">
     <form id ="{{ idForm }}">
         <h2>
@@ -16,10 +16,12 @@ const template =
 
 
 class LoginForm extends Block {
+
     constructor(props: any) {
         super("div", props);
     }
-
+    componentDidMount(): void {
+    }
 
     render() {
         let callbackFunc = Handlebars.compile(template);

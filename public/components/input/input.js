@@ -12,6 +12,8 @@ export class Input extends Block {
     constructor(props) {
         super("input", props);
     }
+    componentDidMount() {
+    }
     render() {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
