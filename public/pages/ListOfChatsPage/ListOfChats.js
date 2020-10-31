@@ -6,13 +6,7 @@ import { FriendList } from "../../components/FriendList/friendList.js";
 import { Button } from "../../components/button/button.js";
 import { FriendItem } from "../../components/friendItem/friend.js";
 import { UsersBlock } from "../../components/usersPart/usersPart.js";
-const template = `<div class="{{ className }}">
-    {{{ header }}}
-    <main id="{{ idMain }}" class="{{ classMain }}"">
-        {{{ friendsList }}}
-        {{{ usersPart }}}
-    </main>
-</div>`;
+import { template } from "./ListOfChatsPageTemplate.js";
 export class ListOfChatsPage extends Block {
     constructor(props) {
         super("div", props);
@@ -24,20 +18,82 @@ export class ListOfChatsPage extends Block {
         let res = callbackFunc({
             className: this.props.className,
             header: this.props.header.render(),
-            idMain: this.props.idMain,
             classMain: this.props.classMain,
             friendsList: this.props.friendsList.render(),
             usersPart: this.props.usersPart.render()
         });
-        console.log('arrFriends', this.props);
         return res;
     }
 }
-export const listOfChatsPage = new ListOfChatsPage({
+const friends = [
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Sergei",
+        userStatus: "I am happy"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Alice",
+        userStatus: "What is up?"
+    }
+];
+const users = [
+    {
+        className: "user_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    },
+    {
+        className: "user_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    },
+    {
+        className: "user_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    }
+];
+const state = {
     className: "site",
     header: new Header({
         className: 'masthead grass',
-        child: 'MINE CHAT',
+        text: 'MINE CHAT',
         imgLogo: new ImageClass({
             className: "avatar",
             alt: "userLogo",
@@ -46,45 +102,14 @@ export const listOfChatsPage = new ListOfChatsPage({
         refToPage: "/profile",
         refToSignInSignOut: "/",
         MenuItem: "Profile",
-        SignInSignOut: "Sign out"
+        SignInSignOut: "Sign out",
+        isAddMenu: true
     }),
-    idMain: "content",
     classMain: "main-content",
     friendsList: new FriendList({
         className: "friends",
         title: "My friends",
-        friends: [
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Sergei",
-                userStatus: "I am happy"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Alice",
-                userStatus: "What is up?"
-            })
-        ]
+        friends: friends.map(friend => new FriendItem(Object.assign(Object.assign({}, friend), { imgPhoto: new ImageClass(friend.imgPhoto) })))
     }),
     usersPart: new UsersBlock({
         className: "messages",
@@ -94,44 +119,14 @@ export const listOfChatsPage = new ListOfChatsPage({
             alt: "friendLogo",
             imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
         }),
-        usersList: [
-            new FriendItem({
-                className: "user_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            }),
-            new FriendItem({
-                className: "user_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            }),
-            new FriendItem({
-                className: "user_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            })
-        ],
+        usersList: users.map(user => new FriendItem(Object.assign(Object.assign({}, user), { imgPhoto: new ImageClass(user.imgPhoto) }))),
         buttonBack: new Button({
-            child: "<-- Back",
+            text: "<-- Back",
             className: "btn_back"
         }),
         pages: [1, 2, 3, 4, 5]
     })
-});
+};
+export const listOfChatsPage = new ListOfChatsPage(state);
 render(".app", listOfChatsPage);
 //# sourceMappingURL=ListOfChats.js.map

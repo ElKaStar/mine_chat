@@ -1,41 +1,17 @@
 
-import {Block} from "../utils/Block.js";
-import {IMessages} from "../../Pages/MessagesPage/MessagesPage";
-const template =
-    `<div class="{{ className }}">
-          <div class="messages_items">
-             {{{ buttonBack }}}
-             <div class="messages_title">
-             <h3>Messages</h3>
-              <h3 class="messages_title_title">{{ userName }}</h3>
-                    {{{ userPhoto }}}
-            </div>
-          </div>       
-            <div class="messages_block">
-                
-            <ul>
-                {{#each messagesList}}
-                    <li>{{{this}}}</li>
-                {{/each}}
-            </ul>
-            </div>
-            <div class="input_area">
-                <textarea class="messages_input">
-                </textarea>
-                {{{ buttonSendMessage }}}
-            </div>       
-            
-    </div>`
+import {Block, IBlock} from "../utils/Block.js";
+import {template} from "./messagesTemplate.js";
+import type {propsMessagesType} from "../utils/Types.js";
 
 
 
 export class MessagesBlock extends Block {
-    constructor(props: object) {
+    constructor(props: propsMessagesType) {
         super("div", props);
     }
 
     render() {
-       let messagesArray: IMessages [] = this.props.messagesList.map((item: IMessages) => item.render())
+        let messagesArray: IBlock [] = this.props.messagesList.map((item: IBlock) => item.render())
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,

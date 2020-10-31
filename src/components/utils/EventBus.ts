@@ -1,4 +1,4 @@
-import {ListenersType} from "./Types";
+import type {ListenersType} from "./Types";
 
 
 export interface IEventBus {

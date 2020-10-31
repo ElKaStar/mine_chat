@@ -1,32 +1,21 @@
 
-import {Block} from "../utils/Block.js";
+import {Block, IBlock} from "../utils/Block.js";
+import type {propsFriendListType} from "../utils/Types.js";
+import {template} from "./friendListTemplate.js";
 
-const template =
-    `<div class="{{ className }}">
-            <div class="title">
-                <h3>{{ title }}</h3>
-            </div>
-            <div class="friends_list">
-            <ul>
-                {{#each friends}}
-                    <li>{{{this}}}</li>
-                {{/each}}
-            </ul>
-            </div>
-    </div>`
 
 
 
 export class FriendList extends Block {
 
-    constructor(props: object) {
+    constructor(props: propsFriendListType) {
         super("div", props);
     }
     componentDidMount(): void {
     }
 
     render() {
-        let friendsArray: any[] = this.props.friends.map((item: any)=> item.render());
+        let friendsArray: IBlock [] = this.props.friends.map((item: IBlock)=> item.render());
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,

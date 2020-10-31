@@ -1,15 +1,10 @@
 import {Block} from "../utils/Block.js";
-
-
-const template : string = `
-<button class="{{ className }}" type="{{ type }}" onClick=clickHandler>
-    <h3>{{ child }}</h3>
-</button>
-`;
+import {template} from "./buttonTemplate.js";
+import type {propsButtonType} from "../utils/Types.js";
 
 
 export class Button extends Block {
-    constructor(props: object) {
+    constructor(props: propsButtonType) {
         super("button", props);
     }
     componentDidMount(): void {
@@ -18,10 +13,10 @@ export class Button extends Block {
     render() {
         this._attachListeners()
         let callbackFunc = Handlebars.compile(template);
-        let res = callbackFunc({ className: this.props.className,
-            child: this.props.child,
-            handlers:this.props.handlers,
-            type: (!!this.props.type)? this.props.type : ""  });
+        let res = callbackFunc({
+            className: this.props.className,
+            text: this.props.text,
+            type: (!!this.props.type)? this.props.type : "button"  });
         return res;
     }
 }

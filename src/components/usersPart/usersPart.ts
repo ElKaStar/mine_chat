@@ -1,51 +1,18 @@
 
-import {Block} from "../utils/Block.js";
-import {IUser} from "../userDetails/userDetail";
+import {Block, IBlock} from "../utils/Block.js";
+import {template} from "./userPartTemplate.js";
+import type {propsUserPartType} from "../utils/Types.js";
 
-const template =
-    `<div class="{{ className }}">
-          <div class="messages_items">
-             {{{ buttonBack }}}
-             <div class="messages_title">
-             <h3>Users</h3>
-             <label class="search_label">Search</label>
-              <input class="search_title"/>
-            </div>
-          </div>       
-            <div class="messages_block">
-                
-            <ul>
-                {{#each usersList}}
-                    <li>
-                   {{{this}}}
-                    </li>
-                {{/each}}
-            </ul>
-            </div>
-            <div class="pagination_area">
-                <ul>
-                <li><h5><<</h5></li>
-              {{#each pages}}
-                    <li>
-                     <h5>
-                     {{this}}
-                      </h5></li>
-                {{/each}}
-                 <li><h5>>></h5></li>
-                </ul>
-            </div>       
-            
-    </div>`
 
 
 
 export class UsersBlock extends Block {
-    constructor(props: object) {
+    constructor(props: propsUserPartType) {
         super("div", props);
     }
 
     render() {
-        let usersArray: IUser [] = this.props.usersList.map((item: IUser) => item.render())
+        let usersArray: IBlock [] = this.props.usersList.map((item: IBlock) => item.render())
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,

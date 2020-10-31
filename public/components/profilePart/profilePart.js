@@ -1,30 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `<div class="{{ className }}">
-          <div class="messages_items">
-             {{{ buttonBack }}}
-             <div class="messages_title">
-             <h3>Profile</h3>
-            </div>
-          </div>       
-            <div class="profile_block">                       
-            <ul class="details">
-                {{#each detailsList}}
-                    {{{this}}}
-                {{/each}}
-            </ul>
-            <div class="edit_part">
-                {{{ userPhoto }}}              
-                {{{ buttonEditProfile }}}
-                {{{ buttonChangePhoto }}}
-                {{{ buttonChangePassword }}}
-            </div> 
-            </div>
-            <div>
-            {{{ inputChangePassword }}}
-            {{{ inputRepeatPassword }}}
-            </div>      
-            
-    </div>`;
+import { template } from "./profilePartTemplate.js";
 export class ProfilePart extends Block {
     constructor(props) {
         super("div", props);
@@ -43,7 +18,6 @@ export class ProfilePart extends Block {
             inputChangePassword: this.props.inputChangePassword.render(),
             inputRepeatPassword: this.props.inputRepeatPassword.render()
         });
-        console.log('render messagesTemplate');
         return res;
     }
     componentDidMount() {

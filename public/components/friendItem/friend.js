@@ -1,11 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `<div class="{{ className }}">
-        {{{ imgPhoto }}}
-            <div class="friend_info">
-                <h3>{{ userName }}</h3>
-                <p>{{ userStatus }}</p>
-            </div>
-    </div>`;
+import { template } from "./friendTemplate.js";
 export class FriendItem extends Block {
     constructor(props) {
         super("div", props);

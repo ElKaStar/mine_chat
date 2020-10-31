@@ -1,8 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `<div class="{{ className }}">
-         <label class="friend_name">{{ friendName }}</label>
-         <p class="friend_message">{{ message }}</p>
-    </div>`;
+import { template } from "./messageTemplate.js";
 export class MessageItem extends Block {
     constructor(props) {
         super("div", props);
@@ -14,7 +11,6 @@ export class MessageItem extends Block {
             friendName: this.props.friendName,
             message: this.props.message
         });
-        console.log('render header', res);
         return res;
     }
     componentDidMount() {

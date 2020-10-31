@@ -8,13 +8,7 @@ import { FriendItem } from "../../components/friendItem/friend.js";
 import { ProfilePart } from "../../components/profilePart/profilePart.js";
 import { UserDetail } from "../../components/userDetails/userDetail.js";
 import { Input } from "../../components/input/input.js";
-const template = `<div class="{{ className }}">
-    {{{ header }}}
-    <main id="{{ idMain }}" class="{{ classMain }}"">
-        {{{ friendsList }}}
-        {{{ profile }}}
-    </main>
-</div>`;
+import { template } from "./ProfilePageType.js";
 export class ProfilePage extends Block {
     constructor(props) {
         super("div", props);
@@ -31,15 +25,76 @@ export class ProfilePage extends Block {
             friendsList: this.props.friendsList.render(),
             profile: this.props.profile.render()
         });
-        console.log('arrFriends', this.props);
         return res;
     }
 }
-export const profilePage = new ProfilePage({
+const friends = [
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Sergei",
+        userStatus: "I am happy"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Alice",
+        userStatus: "What is up?"
+    }
+];
+const detailList = [
+    {
+        title: "First name",
+        info: "Katya"
+    },
+    {
+        title: "Second name",
+        info: "Second name"
+    },
+    {
+        title: "Display name",
+        info: "Katya"
+    },
+    {
+        title: "Login",
+        info: "login"
+    },
+    {
+        title: "Email",
+        info: "Katya@yandex.ru"
+    },
+    {
+        title: "Phone",
+        info: "8900-000-000"
+    },
+    {
+        title: "Status",
+        info: "My status"
+    }
+];
+const state = {
     className: "site",
     header: new Header({
         className: 'masthead grass',
-        child: 'MINE CHAT',
+        text: 'MINE CHAT',
         imgLogo: new ImageClass({
             className: "avatar",
             alt: "userLogo",
@@ -48,45 +103,14 @@ export const profilePage = new ProfilePage({
         refToPage: "/users",
         refToSignInSignOut: "/",
         MenuItem: "Users",
-        SignInSignOut: "Sign out"
+        SignInSignOut: "Sign out",
+        isAddMenu: true
     }),
-    idMain: "content",
     classMain: "main-content",
     friendsList: new FriendList({
         className: "friends",
         title: "My friends",
-        friends: [
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Sergei",
-                userStatus: "I am happy"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Alice",
-                userStatus: "What is up?"
-            })
-        ]
+        friends: friends.map(friend => new FriendItem(Object.assign(Object.assign({}, friend), { imgPhoto: new ImageClass(friend.imgPhoto) })))
     }),
     profile: new ProfilePart({
         className: "messages",
@@ -95,67 +119,39 @@ export const profilePage = new ProfilePage({
             alt: "friendLogo",
             imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
         }),
-        detailsList: [
-            new UserDetail({
-                title: "First name",
-                info: "Katya"
-            }),
-            new UserDetail({
-                title: "Second name",
-                info: "Second name"
-            }),
-            new UserDetail({
-                title: "Display name",
-                info: "Katya"
-            }),
-            new UserDetail({
-                title: "Login",
-                info: "login"
-            }),
-            new UserDetail({
-                title: "Email",
-                info: "Katya@yandex.ru"
-            }),
-            new UserDetail({
-                title: "Phone",
-                info: "8900-000-000"
-            }),
-            new UserDetail({
-                title: "Status",
-                info: "My status"
-            })
-        ],
+        detailsList: detailList.map(item => new UserDetail(item)),
         buttonBack: new Button({
-            child: "<-- Back",
+            text: "<-- Back",
             className: "btn_back"
         }),
         buttonEditProfile: new Button({
-            child: "Edit password",
+            text: "Edit password",
             className: "btn_edit_password"
         }),
         buttonChangePhoto: new Button({
-            child: "Change photo",
+            text: "Change photo",
             className: "btn_change_photo"
         }),
         buttonChangePassword: new Button({
-            child: "Change password",
+            text: "Change password",
             className: "btn_change_password"
         }),
         inputChangePassword: new Input({
             className: "new_password",
-            id: "new_password",
             placeHolder: "Enter new password",
             type: "pass",
-            name: "new_password"
+            name: "new_password",
+            labelText: ""
         }),
         inputRepeatPassword: new Input({
             className: "repeat_password",
-            id: "repeat_password",
             placeHolder: "Repeat new password",
             type: "pass",
-            name: "repeat_password"
+            name: "repeat_password",
+            labelText: ""
         })
     })
-});
+};
+export const profilePage = new ProfilePage(state);
 render(".app", profilePage);
 //# sourceMappingURL=ProfilePage.js.map

@@ -1,29 +1,13 @@
 
 import {Block} from "../../components/utils/Block.js";
 import {render} from "../../components/utils/renderDOM.js";
-import {header} from "../../components/Header/simpleHeader.js";
-import {loginForm} from "./LoginForm.js";
+import {simpleHeader} from "../../components/Header/simpleHeader.js";
 import ImageClass from "../../components/image/image.js";
 import {isValidChecker, validControl} from "../../components/utils/main.js";
-import {EventType} from "../../components/utils/Types";
+import type {EventType, propsLoginPageType} from "../../components/utils/Types.js";
+import {loginForm} from "../../components/LoginForm/LoginForm.js";
+import {template} from "./LoginPageTemplate.js";
 
-
-
-
-
-const template : string =
-`<div class="{{ className }}">
-    {{{ header }}}
-    <main id="{{ idMain }}" class="{{ classMain }}"">
-    <div class="content color_body">
-      <div class="image">
-      <div class="{{ Friends }}"></div>
-      </div>  
-        {{{ loginForm }}}
-         {{{ imageCriper }}}
-    </div>
-    </main>
-</div>`
 
 
 const focusInputHandler = (event: EventType) =>  {
@@ -49,7 +33,7 @@ const blurInputHandler = (event: EventType) => {
             ...Login.props,
             formControls: newProps
         });
-        const labelTags : HTMLCollectionOf<any> = document.getElementsByTagName("label");
+        const labelTags  = document.getElementsByTagName("label");
         for (let i : number = 0; i < labelTags.length; i++) {
             if (labelTags[i].id === event.target.name) {
                 labelTags[i].textContent = newProps[event.target.name].errorMessage
@@ -64,7 +48,7 @@ const blurInputHandler = (event: EventType) => {
                 ...Login.props,
                 formControls: newProps
             });
-            const labelTags: HTMLCollectionOf<any> = document.getElementsByTagName("label");
+            const labelTags = document.getElementsByTagName("label");
             for (let i : number = 0; i < labelTags.length; i++) {
                 if (labelTags[i].id === event.target.name) {
                     labelTags[i].textContent = ""
@@ -73,7 +57,6 @@ const blurInputHandler = (event: EventType) => {
             }
         }
     }
-    console.log(Login.props)
 }
 
 const clickHandler = (event: EventType) => {
@@ -99,23 +82,18 @@ const clickHandler = (event: EventType) => {
 export class LoginPage extends Block {
 
 
-    constructor(props: object) {
+    constructor(props: propsLoginPageType) {
         super("div", props);
     }
 
     componentDidMount() {
-
     }
-
-
-
 
     render() {
 
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
-            idMain: this.props.id,
             handlers: this.props.handlers,
             classMain: this.props.classMain,
             header: this.props.header.render(),
@@ -126,14 +104,12 @@ export class LoginPage extends Block {
         return res;
     }
 }
-
-
-export const Login = new LoginPage({
+const state = {
     className: "site",
     handlers: {
-       clickHandler: clickHandler,
-       focusInputHandler: focusInputHandler,
-      blurInputHandler: blurInputHandler
+        clickHandler: clickHandler,
+        focusInputHandler: focusInputHandler,
+        blurInputHandler: blurInputHandler
     },
     formControls: {
         login: {
@@ -160,19 +136,16 @@ export const Login = new LoginPage({
             }
         }
     },
-    header: header,
-    labelText: "",
+    header: simpleHeader,
     loginForm: loginForm,
-    idMain: "content",
     classMain: "main-content",
     Friends: "mates",
     imageCriper: new ImageClass({
         className: "criper",
-        imageSrc: "https://cdn.glitch.com/fd89db39-ae54-42a6-85ec-9a209641745c%2Fthumbnails%2Funnamed.png?1602255038358"
+        imageSrc: "https://cdn.glitch.com/fd89db39-ae54-42a6-85ec-9a209641745c%2Fthumbnails%2Funnamed.png?1602255038358",
+        alt: "criper"
     })
-});
+}
 
-
-
-
+export const Login = new LoginPage(state);
 render(".app", Login);

@@ -1,13 +1,17 @@
 import Header from "./Header.js";
 import ImageClass from "../image/image.js";
 
+const state = {
+    className: 'masthead color_pink',
+    text: 'MINE CHAT',
+    isAddMenu: false,
+    imgLogo: new ImageClass({
+        className: "",
+        imageSrc: "",
+        alt: ""
+    })
+}
 
-export const header = new Header({
-     className: 'masthead color_pink',
-     child: 'MINE CHAT',
-     isAddMenu: false,
-    imgLogo: new ImageClass({}),
-
- });
+export const simpleHeader = new Header(state);
 
 

@@ -1,25 +1,12 @@
 
 import {Block} from "../../components/utils/Block.js";
 import {render} from "../../components/utils/renderDOM.js";
-import {header} from "../../components/Header/simpleHeader.js";
-import {registrationForm} from "./registrationForm.js";
+import {simpleHeader} from "../../components/Header/simpleHeader.js";
 import {isValidChecker, validControl} from "../../components/utils/main.js";
-import {EventType} from "../../components/utils/Types.js";
+import type {EventType, propsRegistrationPageType} from "../../components/utils/Types.js";
+import {registrationForm} from "../../components/RegistrationForm/registrationForm.js";
+import {template} from "./RegistrationPageTemplate.js";
 
-
-
-
-
-const template =
-    `<div class="{{ className }}">
-    {{{ header }}}
-    <main id="{{ idMain }}" class="{{ classMain }}"">
-    <div class="content color_grey">
-        {{{ registrationForm }}}
-         <div class="{{ regCriper }}"></div>
-    </div>
-    </main>
-</div>`
 
 const focusInputHandler = (event: EventType) => {
     event.preventDefault();
@@ -90,7 +77,7 @@ const clickHandler = (event: EventType) => {
 
 export class RegistrationPage extends Block {
 
-    constructor(props: object) {
+    constructor(props: propsRegistrationPageType) {
         super("div", props);
     }
 
@@ -103,7 +90,6 @@ export class RegistrationPage extends Block {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
-            idMain: this.props.id,
             handlers: this.props.handlers,
             classMain: this.props.classMain,
             header: this.props.header.render(),
@@ -191,9 +177,8 @@ const state = {
             }
         }
     },
-    header: header,
+    header: simpleHeader,
     registrationForm : registrationForm,
-    idMain: "content",
     classMain: "main-content",
     regCriper: "regCriper"
 }

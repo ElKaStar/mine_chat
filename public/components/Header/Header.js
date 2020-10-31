@@ -1,26 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `<nav class="{{ className }}">
-    <ul>
-     {{#if isAddMenu}}
-        <li>
-            {{{ imgLogo }}}
-        </li>
-        {{/if}}
-        <li class="header">
-            <header>
-                <h1>
-                    {{ child }}
-                </h1>
-            </header>
-        </li>
-        <li class="link">
-            <a href="{{ refToPage }}">{{MenuItem}}</a>
-        </li>
-        <li class="sign">
-            <a href="{{ refToSignInSignOut }}">{{SignInSignOut}}</a>
-        </li>
-    </ul>
-</nav>`;
+import { template } from "./HeaderTemplate.js";
 class Header extends Block {
     constructor(props) {
         super("header", props);
@@ -29,7 +8,8 @@ class Header extends Block {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
-            child: this.props.child,
+            text: this.props.text,
+            isAddMenu: this.props.isAddMenu,
             imgLogo: this.props.imgLogo.render(),
             refToPage: this.props.refToPage,
             refToSignInSignOut: this.props.refToSignInSignOut,

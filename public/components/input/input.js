@@ -1,13 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `<label id="{{ name }}" class="label_input">{{ labelText }}</label>
-<input class="{{ className }}" 
-        id="{{ id }}"
-        placeholder="{{ placeHolder}}"
-        type="{{ type }}"
-        name="{{ name }}"
-        onfocus=focusInputHandler
-        onblur=blurInputHandler
-        />`;
+import { template } from "./inputTemplate.js";
 export class Input extends Block {
     constructor(props) {
         super("input", props);
@@ -19,8 +11,6 @@ export class Input extends Block {
         let res = callbackFunc({
             className: this.props.className,
             labelText: this.props.labelText,
-            id: this.props.id,
-            formControls: this.props.formControls,
             placeHolder: this.props.placeHolder,
             type: this.props.type,
             name: this.props.name

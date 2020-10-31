@@ -7,13 +7,7 @@ import { MessagesBlock } from "../../components/messages/messages.js";
 import { MessageItem } from "../../components/message/message.js";
 import { Button } from "../../components/button/button.js";
 import { FriendItem } from "../../components/friendItem/friend.js";
-const template = `<div class="{{ className }}">
-    {{{ header }}}
-    <main id="{{ idMain }}" class="{{ classMain }}"">
-        {{{ friendsList }}}
-        {{{ messagesPart }}}
-    </main>
-</div>`;
+import { template } from "./MessagePageTemplate.js";
 export class MessagesPage extends Block {
     constructor(props) {
         super("div", props);
@@ -25,7 +19,6 @@ export class MessagesPage extends Block {
         let res = callbackFunc({
             className: this.props.className,
             header: this.props.header.render(),
-            idMain: this.props.idMain,
             classMain: this.props.classMain,
             friendsList: this.props.friendsList.render(),
             messagesPart: this.props.messagesPart.render()
@@ -33,11 +26,60 @@ export class MessagesPage extends Block {
         return res;
     }
 }
-export const messagesPage = new MessagesPage({
+const messages = [
+    {
+        className: "message_item friend",
+        friendName: "Sergei",
+        message: "Hello"
+    },
+    {
+        className: "message_item you",
+        friendName: "YOU",
+        message: "Hello. How are you"
+    },
+    {
+        className: "message_item friend",
+        friendName: "Sergei",
+        message: "Fine. And you?"
+    }
+];
+const friends = [
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Sergei",
+        userStatus: "I am happy"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Katya",
+        userStatus: "I am happy too"
+    },
+    {
+        className: "friend_item",
+        imgPhoto: {
+            className: "userLogo",
+            alt: "userLogo",
+            imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
+        },
+        userName: "Alice",
+        userStatus: "What is up?"
+    }
+];
+const state = {
     className: "site",
     header: new Header({
         className: 'masthead grass',
-        child: 'MINE CHAT',
+        text: 'MINE CHAT',
         imgLogo: new ImageClass({
             className: "avatar",
             alt: "userLogo",
@@ -46,45 +88,14 @@ export const messagesPage = new MessagesPage({
         refToPage: "/users",
         refToSignInSignOut: "/",
         MenuItem: "Users",
-        SignInSignOut: "Sign out"
+        SignInSignOut: "Sign out",
+        isAddMenu: true
     }),
-    idMain: "content",
     classMain: "main-content",
     friendsList: new FriendList({
         className: "friends",
         title: "My friends",
-        friends: [
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Sergei",
-                userStatus: "I am happy"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Katya",
-                userStatus: "I am happy too"
-            }),
-            new FriendItem({
-                className: "friend_item",
-                imgPhoto: new ImageClass({
-                    className: "userLogo",
-                    alt: "userLogo",
-                    imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
-                }),
-                userName: "Alice",
-                userStatus: "What is up?"
-            })
-        ]
+        friends: friends.map(friend => new FriendItem(Object.assign(Object.assign({}, friend), { imgPhoto: new ImageClass(friend.imgPhoto) })))
     }),
     messagesPart: new MessagesBlock({
         className: "messages",
@@ -94,32 +105,17 @@ export const messagesPage = new MessagesPage({
             alt: "friendLogo",
             imageSrc: "https://yt3.ggpht.com/a/AATXAJySmDAYcmdH8pi8cja3bKSohOt77cfR6jH2Pg=s900-c-k-c0xffffffff-no-rj-mo"
         }),
-        messagesList: [
-            new MessageItem({
-                className: "message_item friend",
-                friendName: "Sergei",
-                message: "Hello"
-            }),
-            new MessageItem({
-                className: "message_item you",
-                friendName: "YOU",
-                message: "Hello. How are you"
-            }),
-            new MessageItem({
-                className: "message_item friend",
-                friendName: "Sergei",
-                message: "Fine. And you?"
-            })
-        ],
+        messagesList: messages.map(item => new MessageItem(item)),
         buttonBack: new Button({
-            child: "<-- Back",
+            text: "<-- Back",
             className: "btn_back"
         }),
         buttonSendMessage: new Button({
-            child: "send",
+            text: "send",
             className: "btn_send_message"
         })
     })
-});
+};
+export const messagesPage = new MessagesPage(state);
 render(".app", messagesPage);
 //# sourceMappingURL=MessagesPage.js.map

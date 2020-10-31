@@ -1,19 +1,7 @@
 import { Block } from "../utils/Block.js";
-const template = `<div class="{{ className }}">
-    <form id ="{{ idForm }}">
-        <h2>
-        {{ formTitle }}
-        </h2>
-        {{{ firstName }}}
-        {{{ secondName }}}
-        {{{ email }}}
-        {{{ phone }}}
-        {{{ inputLogin }}}
-        {{{ inputPassword }}}
-        {{{ button }}}
-        <small class="small_text">I have been registered</small>
-    </form>
-</div>`;
+import { template } from "./registrationFormTemplate.js";
+import { Input } from "../input/input.js";
+import { Button } from "../button/button.js";
 class RegistrationForm extends Block {
     constructor(props) {
         super("div", props);
@@ -24,7 +12,6 @@ class RegistrationForm extends Block {
         let callbackFunc = Handlebars.compile(template);
         let res = callbackFunc({
             className: this.props.className,
-            idForm: this.props.idForm,
             formTitle: this.props.formTitle,
             firstName: this.props.firstName.render(),
             secondName: this.props.secondName.render(),
@@ -37,5 +24,57 @@ class RegistrationForm extends Block {
         return res;
     }
 }
-export default RegistrationForm;
+const state = {
+    className: 'registration_form',
+    idForm: 'registrationForm',
+    formTitle: 'Registration',
+    firstName: new Input({
+        className: '',
+        placeHolder: "Enter first name",
+        type: "text",
+        name: "firstName",
+        labelText: ""
+    }),
+    secondName: new Input({
+        className: '',
+        placeHolder: "Enter second name",
+        type: "text",
+        name: "secondName",
+        labelText: ""
+    }),
+    email: new Input({
+        className: '',
+        placeHolder: "Enter email",
+        type: "text",
+        name: "email",
+        labelText: ""
+    }),
+    phone: new Input({
+        className: '',
+        placeHolder: "Enter phone",
+        type: "tel",
+        name: "phone",
+        labelText: ""
+    }),
+    inputLogin: new Input({
+        className: '',
+        placeHolder: "Enter login",
+        type: "text",
+        name: "login",
+        labelText: ""
+    }),
+    inputPassword: new Input({
+        className: '',
+        placeHolder: "Enter password",
+        type: "password",
+        name: "password",
+        labelText: ""
+    }),
+    button: new Button({
+        className: "",
+        type: "submit",
+        text: "send"
+    })
+};
+export const registrationForm = new RegistrationForm(state);
 //# sourceMappingURL=registrationForm.js.map

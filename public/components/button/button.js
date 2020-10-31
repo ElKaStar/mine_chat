@@ -1,9 +1,5 @@
 import { Block } from "../utils/Block.js";
-const template = `
-<button class="{{ className }}" type="{{ type }}" onClick=clickHandler>
-    <h3>{{ child }}</h3>
-</button>
-`;
+import { template } from "./buttonTemplate.js";
 export class Button extends Block {
     constructor(props) {
         super("button", props);
@@ -13,10 +9,11 @@ export class Button extends Block {
     render() {
         this._attachListeners();
         let callbackFunc = Handlebars.compile(template);
-        let res = callbackFunc({ className: this.props.className,
-            child: this.props.child,
-            handlers: this.props.handlers,
-            type: (!!this.props.type) ? this.props.type : "" });
+        let res = callbackFunc({
+            className: this.props.className,
+            text: this.props.text,
+            type: (!!this.props.type) ? this.props.type : "button"
+        });
         return res;
     }
 }

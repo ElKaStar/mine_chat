@@ -1,22 +1,13 @@
 
 import {Block} from "../utils/Block.js";
+import {template} from "./inputTemplate.js";
+import type {propsInputType} from "../utils/Types.js";
 
-
-const template : string =
-`<label id="{{ name }}" class="label_input">{{ labelText }}</label>
-<input class="{{ className }}" 
-        id="{{ id }}"
-        placeholder="{{ placeHolder}}"
-        type="{{ type }}"
-        name="{{ name }}"
-        onfocus=focusInputHandler
-        onblur=blurInputHandler
-        />`
 
 
 export class Input extends Block {
 
-    constructor(props: object) {
+    constructor(props: propsInputType) {
         super("input", props);
     }
     componentDidMount(): void {
@@ -29,8 +20,6 @@ export class Input extends Block {
         let res = callbackFunc({
             className: this.props.className,
             labelText: this.props.labelText,
-            id: this.props.id,
-            formControls: this.props.formControls,
             placeHolder: this.props.placeHolder,
             type: this.props.type,
             name: this.props.name

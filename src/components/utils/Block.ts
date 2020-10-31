@@ -1,22 +1,13 @@
 import EventBus, {IEventBus} from "./EventBus.js";
-import {metaType, propsType} from "./Types.js";
+import type {metaType, propsType} from "./Types.js";
 
 export interface IBlock {
-    _element: Element | null;
-    _meta: metaType;
-    _subscriptions: any;
-    props: propsType;
-    eventBus: () => IEventBus;
     render: () => string;
-    init: () => void;
     componentDidMount: () => void;
     componentDidUpdate: (oldProps: object, newProps: object) => boolean;
-    setProps: (nextProps: object) => void;
-    getContent: () => HTMLCollectionOf<any>| Element |null;
-
 }
 
-export abstract class Block implements IBlock{
+export abstract class Block {
 
     static EVENTS = {
         INIT: "init",
@@ -25,9 +16,9 @@ export abstract class Block implements IBlock{
         FLOW_RENDER: "flow:render"
     };
 
-    _element: Element | null;
-    _meta: metaType;
-    _subscriptions: any = [];
+    protected   _element: Element | null;
+    protected  _meta: metaType;
+    protected  _subscriptions: any = [];
     props: propsType;
     eventBus: () => IEventBus;
 
@@ -108,7 +99,7 @@ export abstract class Block implements IBlock{
         const block = this.render();
 
         if (block !== undefined) {
-            //зачем в учебных материалах описан способ который нельзя использовать и не приведен пример как нужно?
+
             if (this._element) {
                 this._element.innerHTML = block;
                 this._attachListeners();

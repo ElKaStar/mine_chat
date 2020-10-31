@@ -1,9 +1,14 @@
 import Header from "./Header.js";
 import ImageClass from "../image/image.js";
-export const header = new Header({
+const state = {
     className: 'masthead color_pink',
-    child: 'MINE CHAT',
+    text: 'MINE CHAT',
     isAddMenu: false,
-    imgLogo: new ImageClass({}),
-});
+    imgLogo: new ImageClass({
+        className: "",
+        imageSrc: "",
+        alt: ""
+    })
+};
+export const simpleHeader = new Header(state);
 //# sourceMappingURL=simpleHeader.js.map

@@ -1,19 +1,11 @@
 
 import {Block} from "../utils/Block.js";
-
-const template : string =
-    `<div class="{{ className }}">
-        {{{ imgPhoto }}}
-            <div class="friend_info">
-                <h3>{{ userName }}</h3>
-                <p>{{ userStatus }}</p>
-            </div>
-    </div>`
-
+import {template} from "./friendTemplate.js";
+import type {propsFriendType} from "../utils/Types.js";
 
 
 export class FriendItem extends Block {
-    constructor(props: any) {
+    constructor(props: propsFriendType) {
         super("div", props);
     }
 

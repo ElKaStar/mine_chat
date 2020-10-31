@@ -1,23 +1,6 @@
 import { Block } from "../../components/utils/Block.js";
 import { render } from "../../components/utils/renderDOM.js";
-const template = `<div class="wrapper">
-        <div class="main">
-            <h1>
-                404
-            </h1>
-            <p>
-                page not found
-            </p>
-            <button>
-                <h3>
-                    Back to home
-                </h3>
-            </button>
-        </div>
-        <div class="endermen">
-        
-</div>
-        <div>`;
+import { template } from "./404NotFoundTemplate.js";
 export class NotFound extends Block {
     constructor(props) {
         super("div", props);
@@ -26,13 +9,14 @@ export class NotFound extends Block {
     }
     render() {
         let callbackFunc = Handlebars.compile(template);
-        let res = callbackFunc();
-        console.log('arrFriends', this.props);
+        let res = callbackFunc({
+            link: this.props.link
+        });
         return res;
     }
 }
 export const notFound = new NotFound({
-    className: "site",
+    link: "/",
 });
 render(".app", notFound);
 //# sourceMappingURL=404NotFound.js.map

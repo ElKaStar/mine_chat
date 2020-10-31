@@ -1,12 +1,11 @@
-import {IBlock} from "./Block";
+import type {IBlock} from "./Block.js";
 
 
 export function render(query: string, block: IBlock) {
     const root = document.querySelector(query);
-    console.log("element", typeof block.getContent())
     if (root) {
         if (block.getContent() !== null) {
-            root.appendChild(block.getContent())!;
+            root.appendChild(block.getContent()!);
         }
     }
     return root;

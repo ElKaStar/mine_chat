@@ -1,31 +1,11 @@
 
 import {Block} from "../../components/utils/Block.js";
 import {render} from "../../components/utils/renderDOM.js";
+import {template} from "./500pageTemplate.js";
 
-
-
-
-const template =
-    `<main>
-    <div class="{{ className }}">
-        <h1 class="errorstatus">
-            500 Server Error
-        </h1>
-        <h2 class="oops">
-            Oops.. something went wrong
-        </h2>
-        <div class="cat">
-       
-        </div>
-        <p class="text">
-            Try to refresh the page or feel free to contact us
-        </p>
-
-    </div>
-</main>`
 
 export class ServerError extends Block {
-    constructor(props: object) {
+    constructor(props: {className: string}) {
         super("main", props);
     }
 
@@ -37,8 +17,10 @@ export class ServerError extends Block {
 
 
         let callbackFunc = Handlebars.compile(template);
-        let res = callbackFunc();
-        console.log('arrFriends',this.props)
+        let res = callbackFunc({
+            className: this.props.className
+        });
+
         return res;
     }
 }

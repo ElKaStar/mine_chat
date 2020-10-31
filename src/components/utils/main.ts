@@ -1,4 +1,4 @@
-import {formControlsType, validationType} from "./Types";
+import type {formControlsType, validationType} from "./Types";
 
 export const validControl = (value: string, validation: validationType) =>  {
     if (!validation) {
